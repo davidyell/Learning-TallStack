@@ -1,0 +1,10 @@
+@import "/node_modules/flag-icons/css/flag-icons.min.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+header, footer {
+    color: white;
+    background-color: #10044a;
+}

@@ -14,10 +14,13 @@ class GamesController extends Controller
      */
     public function index(): View
     {
-        $games = Game::select(['info'])->get()->groupBy(['info.event.name', 'info.season']);
+        $games = Game::select(['info'])
+            ->where('info.season', '=', '2021/22')
+            ->orderBy('info.event.match_number', 'desc')
+            ->get();
 
         return view('games.index', [
-            'games' => $games->toArray()
+            'games' => $games
         ]);
     }
 }

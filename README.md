@@ -6,7 +6,8 @@ This project uses Laravel, Tailwind, Livewire and MongoDB
 
 ## Database
 
-You will need to download the T20 match data from https://cricsheet.org/ you'll need the [T20 internationals data](https://cricsheet.org/downloads/t20s_json.zip)
+You will need to download the T20 match data from https://cricsheet.org/ you'll need the [T20 internationals data](https://cricsheet.org/downloads/t20s_json.zip) 
+and extract it into the `database/source_data/icc_mens_t20_world_cup_json` folder for the seeder to read into the database.
 
 ## Requirements
 
