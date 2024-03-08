@@ -1,17 +1,7 @@
 <div class="game bg-gray-200 m-4" id="{{ $game->info['event']['match_number'] ?? $game->info['event']['stage'] }}">
     <div class="text-center text-blue-100 bg-blue-950 p-3">{{ \Illuminate\Support\Carbon::parse($game->info['dates'][0])->toFormattedDayDateString() }}</div>
 
-    <div class="text-4xl grid grid-rows-1 grid-flow-col justify-evenly mt-4">
-        <div class="{{ $game->info['teams'][0] !== $game->info['outcome']['winner'] ? 'text-gray-500' : '' }}">
-            {{ $game->info['teams'][0] }} <span><span class="fi fi-{{ $game->getCountryCode($game->info['teams'][0]) }}"/></span>
-        </div>
-
-        <div>vs</div>
-
-        <div class="{{ $game->info['teams'][1] !== $game->info['outcome']['winner'] ? 'text-gray-500' : '' }}">
-            <span><span class="fi fi-{{ $game->getCountryCode($game->info['teams'][1]) }}"/></span> {{ $game->info['teams'][1] }}
-        </div>
-    </div>
+    <x-games.teams-versus :game="$game" :competing-nations="$competingNations"></x-games.teams-versus>
 
     <div class="grid grid-cols-3 mt-4 p-3">
         <div class="col-span-2">

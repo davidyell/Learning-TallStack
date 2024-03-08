@@ -8,11 +8,11 @@
 </head>
 <body>
     <div class="container mx-auto">
-        <x-header></x-header>
+        <x-layouts.header></x-layouts.header>
 
         {{ $slot }}
 
-        <x-footer></x-footer>
+        <x-layouts.footer></x-layouts.footer>
     </div>
 </body>
 </html>

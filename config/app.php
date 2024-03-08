@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'CricTallApp'),
 
     /*
     |--------------------------------------------------------------------------
@@ -168,6 +168,11 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        /*
+         * Our providers
+         */
+        \App\Providers\CountriesProvider::class,
     ])->toArray(),
 
     /*
