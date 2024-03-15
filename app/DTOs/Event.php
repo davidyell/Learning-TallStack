@@ -12,8 +12,9 @@ class Event extends Data
     public function __construct(
         public string $name,
         #[MapInputName('match_number')]
-        public string $matchNumber,
-        public string $group
+        public ?string $matchNumber,
+        public ?string $stage,
+        public ?string $group
     )
     {
     }
