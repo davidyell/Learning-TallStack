@@ -64,7 +64,7 @@ class Innings extends Data
     }
 
     /**
-     * @return array{ runs: int, balls: int, fours: int, sixes: int, strikeRate: float }
+     * @return array{ runs: int, balls: int, fours: int, sixes: int, strikeRate: float, wicketDelivery: Delivery }
      */
     public function findBatterStats(string $playerName): array
     {
@@ -90,12 +90,16 @@ class Innings extends Data
             $strikeRate = ($runsScored / $ballsFaced) * 100;
         }
 
+        /** @var ?Delivery $wicketDelivery */
+        $wicketDelivery = $playersDeliveries->filter(fn (Delivery $delivery) => !empty($delivery->wickets))->first();
+
         return [
             'runs' => $runsScored,
             'balls' => $ballsFaced,
             'fours' => $fours,
             'sixes' => $sixes,
-            'strikeRate' => $strikeRate
+            'strikeRate' => $strikeRate,
+            'wicketDelivery' => $wicketDelivery
         ];
     }
 }
