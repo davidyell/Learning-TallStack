@@ -17,3 +17,6 @@ header #logo-banner {
     background: rgb(16,4,74);
     background: radial-gradient(circle, rgba(16,4,74,1) 0%, rgba(16,4,74,1) 38%, rgba(255,0,189,1) 100%);
 }
+#view-match-heading {
+    background-image: url('../../public/img/ajay-parthasarathy.jpeg');
+}

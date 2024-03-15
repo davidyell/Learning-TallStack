@@ -23,4 +23,9 @@ class Officials extends Data
     )
     {
     }
+
+    public function listOfficials(): string
+    {
+        return implode(', ', array_merge($this->umpires, $this->matchReferees, $this->reserveUmpires));
+    }
 }

@@ -1,7 +1,9 @@
-<div class="game bg-gray-200 m-4" id="{{ $game->info->event->match_number ?? $game->info->event->stage }}">
+<div class="game bg-gray-200 m-4" id="{{ $game->info->event->matchNumber ?? $game->info->event->stage }}">
     <div class="text-center text-blue-100 bg-blue-950 p-3">{{ \Illuminate\Support\Carbon::parse($game->info->dates[0])->toFormattedDayDateString() }}</div>
 
-    <x-games.teams-versus :game="$game" :competing-nations="$competingNations"></x-games.teams-versus>
+    <div class="mt-4">
+        <x-games.teams-versus :game="$game" :competing-nations="$competingNations" />
+    </div>
 
     <div class="grid grid-cols-3 mt-4 p-3">
         <div class="col-span-2">
@@ -20,8 +22,8 @@
                 @if(!empty($game->info->event->group))
                     Group {{ $game->info->event->group }},
                 @endif
-                @if(!empty($game->info->event->match_number))
-                    Match {{ $game->info->event->match_number }}
+                @if(!empty($game->info->event->matchNumber))
+                    Match {{ $game->info->event->matchNumber }}
                 @endif
                 @if(!empty($game->info->event->stage))
                     {{ $game->info->event->stage }}
@@ -41,13 +43,7 @@
         @else
             <div class="outcome p-3 text-center text-white font-bold bg-pink-500">
         @endif
-            {{ $game->info->outcome['winner'] }} win
-            @if(!empty($game->info->outcome['by']['wickets']))
-                by {{ $game->info->outcome['by']['wickets'] }} wickets!
-            @endif
-            @if(!empty($game->info->outcome['by']['runs']))
-                by {{ $game->info->outcome['by']['runs'] }} runs!
-            @endif
+            <x-games.win-margin :game="$game" />
         </div>
     @endif
 </div>

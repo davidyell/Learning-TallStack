@@ -1,4 +1,4 @@
-<div class="text-4xl grid grid-rows-1 grid-flow-col justify-evenly mt-4">
+<div class="text-4xl grid grid-rows-1 grid-flow-col justify-evenly">
     <div class="{{ $game->info->teams[0] !== $game->info->outcome['winner'] ? 'text-gray-500' : '' }}">
         {{ $game->info->teams[0] }} <span><span class="fi fi-{{ $competingNations[$game->info->teams[0]] }}"/></span>
     </div>
