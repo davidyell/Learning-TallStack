@@ -1,5 +1,5 @@
-<div class="game bg-gray-200 m-4" id="{{ $game->info['event']['match_number'] ?? $game->info['event']['stage'] }}">
-    <div class="text-center text-blue-100 bg-blue-950 p-3">{{ \Illuminate\Support\Carbon::parse($game->info['dates'][0])->toFormattedDayDateString() }}</div>
+<div class="game bg-gray-200 m-4" id="{{ $game->info->event->match_number ?? $game->info->event->stage }}">
+    <div class="text-center text-blue-100 bg-blue-950 p-3">{{ \Illuminate\Support\Carbon::parse($game->info->dates[0])->toFormattedDayDateString() }}</div>
 
     <x-games.teams-versus :game="$game" :competing-nations="$competingNations"></x-games.teams-versus>
 
@@ -10,21 +10,21 @@
                     <path fill-rule="evenodd" d="m11.54 22.351.07.04.028.016a.76.76 0 0 0 .723 0l.028-.015.071-.041a16.975 16.975 0 0 0 1.144-.742 19.58 19.58 0 0 0 2.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 0 0-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 0 0 2.682 2.282 16.975 16.975 0 0 0 1.145.742ZM12 13.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" clip-rule="evenodd" />
                 </svg>
 
-                {{ $game->info['venue'] }}, {{ $game->info['city'] }}
+                {{ $game->info->venue }}, {{ $game->info->city }}
             </p>
             <p>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 float-start">
                     <path fill-rule="evenodd" d="M5.25 2.25a3 3 0 0 0-3 3v4.318a3 3 0 0 0 .879 2.121l9.58 9.581c.92.92 2.39 1.186 3.548.428a18.849 18.849 0 0 0 5.441-5.44c.758-1.16.492-2.629-.428-3.548l-9.58-9.581a3 3 0 0 0-2.122-.879H5.25ZM6.375 7.5a1.125 1.125 0 1 0 0-2.25 1.125 1.125 0 0 0 0 2.25Z" clip-rule="evenodd" />
                 </svg>
 
-                @if(!empty($game->info['event']['group']))
-                    Group {{ $game->info['event']['group'] }},
+                @if(!empty($game->info->event->group))
+                    Group {{ $game->info->event->group }},
                 @endif
-                @if(!empty($game->info['event']['match_number']))
-                    Match {{ $game->info['event']['match_number'] }}
+                @if(!empty($game->info->event->match_number))
+                    Match {{ $game->info->event->match_number }}
                 @endif
-                @if(!empty($game->info['event']['stage']))
-                    {{ $game->info['event']['stage'] }}
+                @if(!empty($game->info->event->stage))
+                    {{ $game->info->event->stage }}
                 @endif
             </p>
         </div>
@@ -33,20 +33,20 @@
         </div>
     </div>
 
-    @if(!empty($game->info['outcome']))
-        @if(!empty($game->info['event']['stage']) && $game->info['event']['stage'] === 'Semi Final')
+    @if(!empty($game->info->outcome))
+        @if(!empty($game->info->event->stage) && $game->info->event->stage === 'Semi Final')
             <div class="outcome p-3 text-center text-white font-bold bg-gray-500">
-        @elseif(!empty($game->info['event']['stage']) && $game->info['event']['stage'] === 'Final')
+        @elseif(!empty($game->info->event->stage) && $game->info->event->stage === 'Final')
             <div class="outcome p-3 text-center text-white font-bold bg-yellow-500">
         @else
             <div class="outcome p-3 text-center text-white font-bold bg-pink-500">
         @endif
-            {{ $game->info['outcome']['winner'] }} win
-            @if(!empty($game->info['outcome']['by']['wickets']))
-                by {{ $game->info['outcome']['by']['wickets'] }} wickets!
+            {{ $game->info->outcome['winner'] }} win
+            @if(!empty($game->info->outcome['by']['wickets']))
+                by {{ $game->info->outcome['by']['wickets'] }} wickets!
             @endif
-            @if(!empty($game->info['outcome']['by']['runs']))
-                by {{ $game->info['outcome']['by']['runs'] }} runs!
+            @if(!empty($game->info->outcome['by']['runs']))
+                by {{ $game->info->outcome['by']['runs'] }} runs!
             @endif
         </div>
     @endif

@@ -1,10 +1,9 @@
 <?php
+declare(strict_types=1);
 
-namespace App\Providers;
+namespace App\Models;
 
-use Illuminate\Support\ServiceProvider;
-
-class CountriesProvider extends ServiceProvider
+class Country
 {
     private array $countryCodes = [
         'Afghanistan' => 'af',
@@ -39,21 +38,5 @@ class CountriesProvider extends ServiceProvider
     public function getCompetingNations(): array
     {
         return $this->countryCodes;
-    }
-
-    /**
-     * Register services.
-     */
-    public function register(): void
-    {
-        $this->app->singleton(self::class, fn() => new CountriesProvider(app()));
-    }
-
-    /**
-     * Bootstrap services.
-     */
-    public function boot(): void
-    {
-        //
     }
 }
