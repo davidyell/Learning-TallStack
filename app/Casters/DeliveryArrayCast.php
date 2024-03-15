@@ -13,6 +13,6 @@ class DeliveryArrayCast implements Cast
 
     public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): mixed
     {
-        return array_map(static fn (array $delivery) => Delivery::from($delivery), $value);
+        return collect(array_map(static fn (array $delivery) => Delivery::from($delivery), $value));
     }
 }
