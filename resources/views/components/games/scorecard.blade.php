@@ -24,8 +24,19 @@
             ?>
             <tr class="border-b-2 border-gray-200">
                 <td class="text-left">{{ $player }}</td>
-                <td class="text-left">Caught?</td>
-                <td class="text-left">Bowler?</td>
+                <td class="text-left">
+                    @if(!empty($batterStats['wicketDelivery']))
+                        {{ \Illuminate\Support\Str::substr($batterStats['wicketDelivery']->wickets[0]['kind'], 0, 1) }}
+                        @if(!empty($batterStats['wicketDelivery']->wickets[0]['fielders']))
+                            {{ $batterStats['wicketDelivery']->wickets[0]['fielders'][0]['name'] }}
+                        @endif
+                    @endif
+                </td>
+                <td class="text-left">
+                    @if(!empty($batterStats['wicketDelivery']->bowler))
+                        {{ $batterStats['wicketDelivery']->bowler }}
+                    @endif
+                </td>
                 <td class="text-right">{{ $batterStats['runs'] }}</td>
                 <td class="text-right">{{ $batterStats['balls'] }}</td>
                 <td class="text-right">{{ $batterStats['fours'] }}</td>
