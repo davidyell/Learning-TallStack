@@ -33,7 +33,7 @@ class AllMatches extends Component
             ->get();
 
         /**
-         * Use some filtering in the Collection class, as the query builder doens't seem to work
+         * Use some filtering in the Collection class, as the query builder doesn't seem to work
          */
         if ($this->groupFilter !== null && $this->groupFilter !== '') {
             $games = $games->filter(fn ($match) => !empty($match['info']['event']['group']) ? $match['info']['event']['group'] === $this->groupFilter : null);

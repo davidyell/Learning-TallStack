@@ -1,4 +1,5 @@
 @import "/node_modules/flag-icons/css/flag-icons.min.css";
+@import url('https://fonts.googleapis.com/css2?family=Graduate&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,4 +8,12 @@
 header, footer {
     color: white;
     background-color: #10044a;
+}
+header #logo-banner {
+    font-size: 3.5em;
+    font-family: "Graduate", serif;
+    font-weight: 400;
+    font-style: normal;
+    background: rgb(16,4,74);
+    background: radial-gradient(circle, rgba(16,4,74,1) 0%, rgba(16,4,74,1) 38%, rgba(255,0,189,1) 100%);
 }
