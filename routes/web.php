@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\GamesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,4 +16,4 @@ use Illuminate\Support\Facades\Route;
 Route::redirect('/', '/games');
 
 Route::get(uri: '/games', action: \App\Livewire\Games\AllMatches::class)->name('games.index');
-Route::get(uri: '/game/{id}', action: [GamesController::class, 'show'])->name('games.show');
+Route::get(uri: '/game/{id}', action: \App\Livewire\Games\ViewMatch::class)->name('games.show');
