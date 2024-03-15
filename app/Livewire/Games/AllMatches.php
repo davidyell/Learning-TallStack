@@ -2,11 +2,10 @@
 
 namespace App\Livewire\Games;
 
+use App\Models\Country;
 use App\Models\Game;
-use App\Providers\CountriesProvider;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
-use MongoDB\Laravel\Eloquent\Builder;
 
 class AllMatches extends Component
 {
@@ -16,10 +15,10 @@ class AllMatches extends Component
 
     public Collection $games;
 
-    public function mount(CountriesProvider $countriesProvider)
+    public function mount(Country $country)
     {
         $this->getGames();
-        $this->competingNations = $countriesProvider->getCompetingNations();
+        $this->competingNations = $country->getCompetingNations();
     }
 
     public function getGames(): void

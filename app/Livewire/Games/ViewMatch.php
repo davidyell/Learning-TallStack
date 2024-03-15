@@ -2,20 +2,28 @@
 
 namespace App\Livewire\Games;
 
+use App\Models\Country;
 use App\Models\Game;
+use App\Providers\CountriesProvider;
 use Livewire\Component;
 
 class ViewMatch extends Component
 {
-    private $id;
+    /**
+     * @var string[]
+     */
+    public array $competingNations = [];
 
-    public function mount($id)
+    public Game $game;
+
+    public function mount($id, Country $country)
     {
-        $this->id = $id;
+        $this->game = Game::query()->findOrFail($id);
+        $this->competingNations = $country->getCompetingNations();
     }
 
     public function render()
     {
-        return view('livewire.games.view-match', ['game' => Game::query()->findOrFail($this->id)]);
+        return view('livewire.games.view-match');
     }
 }
