@@ -35,11 +35,11 @@ class AllMatches extends Component
          * Use some filtering in the Collection class, as the query builder doesn't seem to work
          */
         if ($this->groupFilter !== null && $this->groupFilter !== '') {
-            $games = $games->filter(fn ($match) => !empty($match['info']['event']['group']) ? $match['info']['event']['group'] === $this->groupFilter : null);
+            $games = $games->filter(fn ($match) => !empty($match->info->event->group) ? $match->info->event->group === $this->groupFilter : null);
         }
 
         if ($this->countryFilter !== null && $this->countryFilter !== '') {
-            $games = $games->filter(fn ($match) => in_array($this->countryFilter, $match['info']['teams']));
+            $games = $games->filter(fn ($match) => in_array($this->countryFilter, $match->info->teams));
         }
 
         $this->games = $games;

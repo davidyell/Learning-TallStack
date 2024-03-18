@@ -50,12 +50,17 @@ class Innings extends Data
         );
     }
 
-    public function extrasByType()
+    public function extrasByType(): Collection
     {
         return $this->overs->flatMap->deliveries
             ->pluck('extras')
             ->filter(fn ($ball) => $ball !== null)
             ->countBy(fn (array $extra) => array_key_first($extra));
+    }
+
+    public function getFinalRunTotal(): int
+    {
+        return  $this->sumBattersRuns() + $this->sumExtras();
     }
 
     public function getFinalScore(): string

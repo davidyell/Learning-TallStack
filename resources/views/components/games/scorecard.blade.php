@@ -26,18 +26,34 @@
                 <td class="text-left">{{ $player }}</td>
                 <td class="text-left">
                     @if(!empty($batterStats['wicketDelivery']))
-                        {{ \Illuminate\Support\Str::substr($batterStats['wicketDelivery']->wickets[0]['kind'], 0, 1) }}
+                        @if($batterStats['wicketDelivery']->wickets[0]['kind'] === 'caught')
+                            c
+                        @elseif($batterStats['wicketDelivery']->wickets[0]['kind'] === 'stumped')
+                            st
+                        @elseif($batterStats['wicketDelivery']->wickets[0]['kind'] === 'run out')
+                            run-out
+                        @elseif($batterStats['wicketDelivery']->wickets[0]['kind'] !== 'lbw' && $batterStats['wicketDelivery']->wickets[0]['kind'] !== 'bowled')
+                            {{ $batterStats['wicketDelivery']->wickets[0]['kind'] }}
+                        @endif
+
                         @if(!empty($batterStats['wicketDelivery']->wickets[0]['fielders']))
                             {{ $batterStats['wicketDelivery']->wickets[0]['fielders'][0]['name'] }}
                         @endif
+                    @elseif($batterStats['runs'] >= 0 && $batterStats['balls'] > 0)
+                        not out
                     @endif
                 </td>
                 <td class="text-left">
                     @if(!empty($batterStats['wicketDelivery']->bowler))
+                        @if($batterStats['wicketDelivery']->wickets[0]['kind'] === 'lbw')
+                            {{ $batterStats['wicketDelivery']->wickets[0]['kind'] }}
+                        @else
+                            b
+                        @endif
                         {{ $batterStats['wicketDelivery']->bowler }}
                     @endif
                 </td>
-                <td class="text-right">{{ $batterStats['runs'] }}</td>
+                <td class="text-right font-semibold">{{ $batterStats['runs'] }}</td>
                 <td class="text-right">{{ $batterStats['balls'] }}</td>
                 <td class="text-right">{{ $batterStats['fours'] }}</td>
                 <td class="text-right">{{ $batterStats['sixes'] }}</td>
@@ -46,15 +62,20 @@
         @endforeach
         <tr>
             <td>Extras</td>
-            <td>(extras breakdown)</td>
-            <td>(extras run total)</td>
-            <td colspan="5"></td>
+            <td>
+                @foreach($game->innings[$teamIndex]->extrasByType() as $type => $runs)
+                    {{ $runs }} {{ $type }}
+                @endforeach
+            </td>
+            <td></td>
+            <td class="text-right">{{ $game->innings[$teamIndex]->extrasByType()->sum() }}</td>
+            <td colspan="4"></td>
         </tr>
         <tr class="border-t-2 border-gray-500 bg-gray-300">
             <td><strong>Total</strong></td>
-            <td class="text-left">(overs)</td>
+            <td class="text-left font-semibold">({{ $game->innings[$teamIndex]->overs->count() }} overs)</td>
             <td></td>
-            <td class="text-right">final score</td>
+            <td class="text-right font-semibold">{{ $game->innings[$teamIndex]->getFinalRunTotal() }}</td>
             <td colspan="4"></td>
         </tr>
         </tbody>
