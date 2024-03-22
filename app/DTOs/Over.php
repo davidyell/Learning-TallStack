@@ -22,4 +22,18 @@ class Over extends Data
     )
     {
     }
+
+    /**
+     * A maiden over is one where no runs are conceded by the bowler, i.e. the striker
+     * has not scored any runs and there have been no bowling extras (No balls or Wides).
+     * It may include fielding extras (Byes, Leg byes or penalty runs).
+     */
+    public function isMaiden() : bool
+    {
+        $noRunScored = $this->deliveries
+            ->filter(static fn (Delivery $delivery) => $delivery->runs === 0 && !in_array('noballs', array_keys($delivery->extras)) && !in_array('wides', array_keys($delivery->extras)))
+            ->count();
+
+        return $noRunScored === $this->deliveries->count();
+    }
 }
