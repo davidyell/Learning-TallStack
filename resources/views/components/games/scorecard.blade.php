@@ -7,22 +7,25 @@
 <div>
     <table class="table-auto w-full my-5">
         <thead>
-        <tr class="border-b-2 border-gray-500 bg-gray-300">
-            <th class="text-left">Batter</th>
-            <th colspan="2"></th>
-            <th class="text-right">Runs</th>
-            <th class="text-right">Balls</th>
-            <th class="text-right">4s</th>
-            <th class="text-right">6s</th>
-            <th class="text-right">SR</th>
-        </tr>
+            <tr class="border-b-2 border-gray-500 bg-gray-300">
+                <th class="text-left p-1">Batter</th>
+                <th colspan="2"></th>
+                <th class="text-right p-1">Runs</th>
+                <th class="text-right p-1">Balls</th>
+                <th class="text-right p-1">4s</th>
+                <th class="text-right p-1">6s</th>
+                <th class="text-right p-1">SR</th>
+            </tr>
         </thead>
         <tbody>
         @foreach($players as $player)
             <?php
                 $batterStats = $innings->findBatterStats($player);
+                if ($batterStats['balls'] === 0) {
+                    continue;
+                }
             ?>
-            <tr class="border-b-2 border-gray-200">
+            <tr class="border-b-2 border-gray-200 hover:bg-slate-100">
                 <td class="text-left">{{ $player }}</td>
                 <td class="text-left">
                     @if(!empty($batterStats['wicketDelivery']))
@@ -72,10 +75,10 @@
             <td colspan="4"></td>
         </tr>
         <tr class="border-t-2 border-gray-500 bg-gray-300">
-            <td><strong>Total</strong></td>
-            <td class="text-left font-semibold">({{ $game->innings[$teamIndex]->overs->count() }} overs)</td>
+            <td class=" p-1"><strong>Total</strong></td>
+            <td class="text-left font-semibold p-1">({{ $game->innings[$teamIndex]->overs->count() }} overs)</td>
             <td></td>
-            <td class="text-right font-semibold">{{ $game->innings[$teamIndex]->getFinalRunTotal() }}</td>
+            <td class="text-right font-semibold p-1">{{ $game->innings[$teamIndex]->getFinalRunTotal() }}</td>
             <td colspan="4"></td>
         </tr>
         </tbody>
