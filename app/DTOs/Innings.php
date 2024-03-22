@@ -74,7 +74,7 @@ class Innings extends Data
     public function findBatterStats(string $playerName): array
     {
         $playersDeliveries =  $this->overs->flatMap->deliveries
-            ->filter(fn (Delivery $delivery) => $delivery->batter === $playerName);
+            ->filter(fn (Delivery $delivery) => $delivery->batter === $playerName || $delivery->nonStriker === $playerName);
 
         $ballsFaced = $playersDeliveries->count();
 
@@ -95,8 +95,8 @@ class Innings extends Data
             $strikeRate = ($runsScored / $ballsFaced) * 100;
         }
 
-        /** @var ?Delivery $wicketDelivery */
-        $wicketDelivery = $playersDeliveries->filter(fn (Delivery $delivery) => !empty($delivery->wickets))->first();
+        /** @var Delivery|null $wicketDelivery */
+        $wicketDelivery = $playersDeliveries->filter(static fn (Delivery $delivery) => !empty($delivery->wickets) && $delivery->wickets[0]['player_out'] === $playerName)->first();
 
         return [
             'runs' => $runsScored,
@@ -106,5 +106,13 @@ class Innings extends Data
             'strikeRate' => $strikeRate,
             'wicketDelivery' => $wicketDelivery
         ];
+    }
+
+    public function findBowlerStats()
+    {
+        $bowlers =  $this->overs->flatMap->deliveries
+            ->groupBy(fn (Delivery $delivery) => $delivery->bowler);
+
+        dd($bowlers);
     }
 }

@@ -7,7 +7,7 @@
 
             <x-games.teams-versus :game="$game" :competing-nations="$competingNations" />
 
-            <span class="inline-block m-4 py-3 px-6 bg-yellow-400 text-black">Result</span>
+            <span class="inline-block my-4 py-3 px-6 bg-yellow-400 text-black">Result</span>
 
             <div class="grid grid-rows-1 grid-flow-col gap-4 text-2xl">
                 <div>{{ $game->innings[0]->getFinalScore() }}</div>
@@ -24,12 +24,31 @@
             <div class="cursor-pointer border border-gray-300 p-2 {{ $scoreCardTeamKey === 1 ?: 'bg-blue-950 text-white' }}" wire:click="swapScorecards">{{ $game->info->teams[1] }}</div>
         </div>
 
-        <div id="scorecard-0" class="{{ $scoreCardTeamKey !== 0 ?: 'hidden' }}">
-            <x-games.scorecard :game="$game" :team-index="0"/>
+        <div id="scorecard-0" @class(['hidden' => $scoreCardTeamKey !== 0])>
+            <x-games.scorecard :$game :team-index="0"/>
         </div>
 
-        <div id="scorecard-1" class="{{ $scoreCardTeamKey !== 1 ?: 'hidden' }}">
-            <x-games.scorecard :game="$game" :team-index="1"/>
+        <div id="scorecard-1" @class(['hidden' => $scoreCardTeamKey !== 1])>
+            <x-games.scorecard :$game :team-index="1"/>
+        </div>
+    </div>
+
+    <div class="grid grid-rows-1 grid-cols-2">
+        <div>
+            <x-games.bowling :$game :team-index="0" @class(['hidden' => $scoreCardTeamKey !== 0])/>
+            <x-games.bowling :$game :team-index="1" @class(['hidden' => $scoreCardTeamKey !== 1])/>
+        </div>
+        <div>
+            The fall of wicket table
+        </div>
+    </div>
+
+    <div id="rosters" class="grid grid-rows-1 md:grid-cols-2">
+        <div>
+            <x-games.team-sheet :$game :team-index="0"/>
+        </div>
+        <div>
+            <x-games.team-sheet :$game :team-index="1"/>
         </div>
     </div>
 
