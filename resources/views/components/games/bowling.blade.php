@@ -17,7 +17,22 @@ $players = $game->info->players[$teamName];
             </tr>
         </thead>
         <tbody>
-        {{ $innings->findBowlerStats() }}
+            @foreach($innings->findBowlerStats() as $bowlerStats)
+            <tr class="border-b-2 border-gray-200 hover:bg-slate-100">
+                <td class="text-left p-1">{{ $bowlerStats['bowler'] }}</td>
+                <td class="text-right p-1">{{ $bowlerStats['over_count'] }}</td>
+                <td class="text-right p-1">{{ $bowlerStats['maidens'] }}</td>
+                <td class="text-right p-1">{{ $bowlerStats['runs'] }}</td>
+                <td class="text-right p-1">{{ $bowlerStats['wickets'] }}</td>
+                <td class="text-right p-1">
+                    @if($bowlerStats['over_count'] > 0)
+                        {{ \Illuminate\Support\Number::format($bowlerStats['runs'] / $bowlerStats['over_count'], 2) }}
+                    @else
+                        0.0
+                    @endif
+                </td>
+            </tr>
+            @endforeach
         </tbody>
     </table>
 </div>

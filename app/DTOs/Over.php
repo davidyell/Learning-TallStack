@@ -20,8 +20,7 @@ class Over extends Data
         /** @var Collection<int, Delivery> */
         public Collection $deliveries
     )
-    {
-    }
+    {}
 
     /**
      * A maiden over is one where no runs are conceded by the bowler, i.e. the striker
@@ -35,5 +34,10 @@ class Over extends Data
             ->count();
 
         return $noRunScored === $this->deliveries->count();
+    }
+
+    public function whoBowledThisOver(): Collection
+    {
+        return $this->deliveries->groupBy('bowler');
     }
 }

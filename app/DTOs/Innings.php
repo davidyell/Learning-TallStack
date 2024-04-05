@@ -108,11 +108,35 @@ class Innings extends Data
         ];
     }
 
-    public function findBowlerStats()
+    /**
+     * @return array<string, array{bowler: string, ball_count: int, over_count: int, maidens: int, runs: int, wickets: int}
+     */
+    public function findBowlerStats(): array
     {
-        $bowlers =  $this->overs->flatMap->deliveries
-            ->groupBy(fn (Delivery $delivery) => $delivery->bowler);
+        $oversByBowler = [];
 
-        dd($bowlers);
+        foreach ($this->overs as $over) {
+            foreach ($over->whoBowledThisOver() as $bowler => $balls) {
+                /** @var Collection<int, Delivery> $balls */
+
+                if (empty($oversByBowler[$bowler])) {
+                    $oversByBowler[$bowler] = ['bowler' => $bowler, 'ball_count' => 0, 'over_count' => 0, 'maidens' => 0, 'runs' => 0, 'wickets' => 0];
+                }
+
+                $oversByBowler[$bowler]['ball_count'] += $balls->count();
+                $oversByBowler[$bowler]['runs'] += $balls->sum(fn (Delivery $delivery) => $delivery->runs['batter']);
+                $oversByBowler[$bowler]['wickets'] += $balls->sum(fn (Delivery $delivery) => is_array($delivery->wickets) ? count($delivery->wickets) : 0);
+
+                if ($balls->count() >= 6) {
+                    $oversByBowler[$bowler]['over_count'] += 1;
+                }
+
+                if ($over->isMaiden()) {
+                    $oversByBowler[$bowler]['maidens'] += 1;
+                }
+            }
+        }
+
+        return $oversByBowler;
     }
 }

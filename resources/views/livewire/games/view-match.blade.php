@@ -20,8 +20,8 @@
 
     <div id="scorecards" class="mt-10">
         <div class="grid grid-rows-1 grid-flow-col w-full text-center">
-            <div class="cursor-pointer border border-gray-300 p-2 {{ $scoreCardTeamKey === 0 ?: 'bg-blue-950 text-white' }}" wire:click="swapScorecards">{{ $game->info->teams[0] }}</div>
-            <div class="cursor-pointer border border-gray-300 p-2 {{ $scoreCardTeamKey === 1 ?: 'bg-blue-950 text-white' }}" wire:click="swapScorecards">{{ $game->info->teams[1] }}</div>
+            <div class="cursor-pointer border border-gray-300 p-2 {{ $scoreCardTeamKey === 1 ?: 'bg-blue-950 text-white' }}" wire:click="swapScorecards">{{ $game->info->teams[0] }}</div>
+            <div class="cursor-pointer border border-gray-300 p-2 {{ $scoreCardTeamKey === 0 ?: 'bg-blue-950 text-white' }}" wire:click="swapScorecards">{{ $game->info->teams[1] }}</div>
         </div>
 
         <div id="scorecard-0" @class(['hidden' => $scoreCardTeamKey !== 0])>
@@ -43,13 +43,9 @@
         </div>
     </div>
 
-    <div id="rosters" class="grid grid-rows-1 md:grid-cols-2">
-        <div>
-            <x-games.team-sheet :$game :team-index="0"/>
-        </div>
-        <div>
-            <x-games.team-sheet :$game :team-index="1"/>
-        </div>
+    <div id="rosters" class="grid grid-rows-1 grid-cols-2">
+        <x-games.team-sheet :$game :team-index="0"/>
+        <x-games.team-sheet :$game :team-index="1"/>
     </div>
 
     <div class="mt-4">
